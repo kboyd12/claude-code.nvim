@@ -195,7 +195,7 @@ function M.setup_terminal_navigation(claude_code, config)
         buf,
         't',
         '<S-CR>',
-        [[<CR>]],
+        '<CR>',
         { noremap = true, silent = true, desc = 'Insert newline' }
       )
     end
