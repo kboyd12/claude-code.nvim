@@ -188,6 +188,17 @@ function M.setup_terminal_navigation(claude_code, config)
         { noremap = true, silent = true, desc = 'Scroll full page up' }
       )
     end
+
+    -- Add Shift+Enter keymap to insert newline instead of submitting
+    if config.keymaps.shift_enter then
+      vim.api.nvim_buf_set_keymap(
+        buf,
+        't',
+        '<S-CR>',
+        '<CR>',
+        { noremap = true, silent = true, desc = 'Insert newline' }
+      )
+    end
   end
 end
 

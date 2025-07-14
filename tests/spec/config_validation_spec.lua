@@ -51,7 +51,7 @@ describe('config validation', function()
       invalid_config.window.float = {
         width = true, -- Invalid - boolean
         height = 20,
-        relative = 'editor'
+        relative = 'editor',
       }
 
       local result = config.parse_config(invalid_config, true) -- silent mode
@@ -64,7 +64,7 @@ describe('config validation', function()
       invalid_config.window.float = {
         width = 80,
         height = 20,
-        relative = 'window' -- Invalid option
+        relative = 'window', -- Invalid option
       }
 
       local result = config.parse_config(invalid_config, true) -- silent mode
@@ -78,12 +78,12 @@ describe('config validation', function()
         width = 80,
         height = 20,
         relative = 'editor',
-        border = 'invalid' -- Invalid border style
+        border = 'invalid', -- Invalid border style
       }
 
       local result = config.parse_config(invalid_config, true) -- silent mode
       assert.are.equal(config.default_config.window.position, result.window.position)
-      -- Ensure invalid border doesn't bleed through  
+      -- Ensure invalid border doesn't bleed through
       assert.are.not_equal('invalid', result.window.float.border)
       assert.are.equal(config.default_config.window.float.border, result.window.float.border)
     end)
@@ -159,6 +159,14 @@ describe('config validation', function()
         config.default_config.keymaps.window_navigation,
         result.keymaps.window_navigation
       )
+    end)
+
+    it('should validate keymaps.shift_enter must be a boolean', function()
+      local invalid_config = vim.deepcopy(config.default_config)
+      invalid_config.keymaps.shift_enter = 'true' -- String instead of boolean
+
+      local result = config.parse_config(invalid_config, true)
+      assert.are.equal(config.default_config.keymaps.shift_enter, result.keymaps.shift_enter)
     end)
   end)
 end)
