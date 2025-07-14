@@ -44,6 +44,7 @@ local M = {}
 -- @field toggle ClaudeCodeKeymapsToggle Keymaps for toggling Claude Code
 -- @field window_navigation boolean Enable window navigation keymaps
 -- @field scrolling boolean Enable scrolling keymaps
+-- @field shift_enter boolean Enable shift+enter keymap for terminal mode
 
 --- ClaudeCodeCommandVariants class for command variant configuration
 -- @table ClaudeCodeCommandVariants
@@ -133,6 +134,7 @@ M.default_config = {
     },
     window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
     scrolling = true, -- Enable scrolling keymaps (<C-f/b>) for page up/down
+    shift_enter = true, -- Enable shift+enter keymap for terminal mode
   },
 }
 
@@ -357,6 +359,10 @@ local function validate_keymaps_config(keymaps)
 
   if type(keymaps.scrolling) ~= 'boolean' then
     return false, 'keymaps.scrolling must be a boolean'
+  end
+
+  if type(keymaps.shift_enter) ~= 'boolean' then
+    return false, 'keymaps.shift_enter must be a boolean'
   end
 
   return true, nil
